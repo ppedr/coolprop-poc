@@ -35,17 +35,7 @@ def simulate_real_turbine(mass_flow_rate, P_in, T_in, P_out):
     
     return power_watts, current_efficiency
 
-# This is what the user WANTS
-TARGET_POWER_WATTS = 50 * 1e6 # 50 MW
-
-
-P_IN = 100 * 1e5   # 60 Bar
-T_IN = 500 + 273.15 # 450 C
-P_OUT = 0.1 * 1e5 # 0.1 Bar
-
-
-
-# --- 3. THE ERROR FUNCTION ---
+# --- 2. THE ERROR FUNCTION ---
 def objective_function(mass_flow_guess):
     # Run the simulation with the guess
     calculated_power, _ = simulate_real_turbine(mass_flow_guess, P_IN, T_IN, P_OUT)
@@ -53,8 +43,19 @@ def objective_function(mass_flow_guess):
     # Calculate error
     return calculated_power - TARGET_POWER_WATTS
 
+
+# --- 3. THE PROBLEM DEFINITION ---
+# These are the constraints of your engine
+P_IN = 100 * 1e5   # 60 Bar
+T_IN = 500 + 273.15 # 450 C
+P_OUT = 0.1 * 1e5 # 0.1 Bar
+
+# This is what the user WANTS
+TARGET_POWER_WATTS = 50 * 1e6 # 50 MW
+
 # --- 4. RUN THE SOLVER ---
-print(f"Target Power: {TARGET_POWER_WATTS} W")
+print(f"Target Power: {TARGET_POWER_WATTS/1e6} MW")
+print("Solver is starting...")
 
 # We start guessing at 1.0 kg/s
 required_mass_flow = newton(objective_function, x0=1.0)

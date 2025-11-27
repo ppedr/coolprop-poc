@@ -54,9 +54,9 @@ print("Solver is starting...")
 result_mass_flow = newton(error_function, x0=1.0)
 
 print(f"Solver finished!")
-print(f"Required Mass Flow: {result_mass_flow:.4f} kg/s")
+print(f"Required Mass Flow: {result_mass_flow:.2f} kg/s")
 
 # --- 5. VERIFY ---
 # Let's plug the result back in to be sure
 final_power = simulate_turbine_physics(result_mass_flow, P_IN, T_IN, P_OUT, FIXED_EFF)
-print(f"Verification Power: {final_power/1e6:.4f} MW")
+print(f"Verification Power: {final_power/1e6:.2f} MW")

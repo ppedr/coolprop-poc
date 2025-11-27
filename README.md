@@ -19,4 +19,7 @@ pip install -r requirements.txt
 ## Run a script
 
 1. Open your terminal/command prompt in the project folder.
-2. Type: "py filename.py"
+2. Type:
+```bash
+py folder\script.py
+```
